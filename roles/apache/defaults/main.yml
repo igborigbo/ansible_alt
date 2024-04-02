@@ -1,0 +1,5 @@
+---
+git_url: "https://github.com/igborigbo/hotel-website.git"
+clone_dest: "~/hotel-website/"
+www_folder: "/var/www/html"
+project_name: "hotel-website"

@@ -1,0 +1,6 @@
+---
+- name: Install apache on cent
+  hosts: all
+  become: true
+  roles: 
+    - apache

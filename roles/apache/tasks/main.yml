@@ -1,0 +1,33 @@
+---
+- name: Installing apache on centOS
+  yum:
+    name: httpd
+    state: present
+  when: ansible_facts['os_family'] == 'RedHat'
+  notify: restart apache
+- name: Installing apache on Ubuntu
+  apt:
+    name: apache2
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+  notify: restart apache
+- name: Installing git on centOS
+  yum:
+    name: git
+    state: present
+  when: ansible_facts['os_family'] == "RedHat"
+- name: Installing git on Ubuntu
+  apt:
+    name: git
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Clone static page from git repository
+  ansible.builtin.git:
+    repo: "{{ git_url }}"
+    dest: "{{ clone_dest }}"
+- name: Copying static page to var/www/html
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ clone_dest }}"
+    dest: "{{ www_folder }}"
